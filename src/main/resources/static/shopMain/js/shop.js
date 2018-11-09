@@ -157,7 +157,7 @@ $('#reminds').reminds({
 	titlebgcolor : '#099',
 	linkhovercolor : '#099',
 	/*border: '1px solid #099',*/
-	timer : 2000,
+	timer : 3000,
 	effect : 'slide'
 });
 function stop() {
