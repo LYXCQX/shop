@@ -1,0 +1,55 @@
+<!-- page 容器 -->
+<div class="page" id="page-home">
+	<!-- 标题栏 -->
+	<!-- 		<header class="bar bar-nav">
+			<a class="icon icon-me pull-left open-panel"></a>
+			<h1 class="title">钱牛牛</h1>
+		</header> -->
+
+	<div class="content infinite-scroll infinite-scroll-bottom"
+		data-distance="50" id="homeScroll">
+		<!-- <div class="content-block">
+			</div> -->
+		<!-- 轮播图 -->
+		<div class="swiper-container" data-space-between='10'
+			data-speed="1000" data-pagination='.swiper-pagination'
+			data-autoplay="2000">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" th:each="ad : ${ad}"
+					th:if=" ${ad.adType} ==0">
+					<a target="_blank" th:id="${ad.pid}" class="tka"> <img
+						th:src="${ad.adImg}" th:alt="${ad.adRemark}">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- 轮播广告 -->
+		<div class="remind remind1">
+			<div class="reminds easing" id="reminds">
+				<img src="../shopMain/images/spiker.png" alt="贷款消息">
+				<ul>
+					<li class="tka" th:id="${ad.pid}" th:each="ad : ${ad}"
+						th:if=" ${ad.adType} ==1"><a><b id="remark"
+							th:text="${ad.adRemark}" /></b></a></li>
+				</ul>
+				<div class="bn-arrows">
+					<span class="bn-arrows-left"></span><span class="bn-arrows-right"></span>
+				</div>
+			</div>
+		</div>
+
+		<!-- 内容 -->
+		<div class="content-block-title zxkz">最新口子</div>
+		<div class="list-block media-list productList" id="products">
+			<ul class="list-container home">
+
+			</ul>
+		</div>
+		<!-- 加载提示符 -->
+		<div class="infinite-scroll-preloader" id="homePreloader">
+			<div class="preloader"></div>
+		</div>
+	</div>
+
+</div>

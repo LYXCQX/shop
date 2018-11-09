@@ -1,0 +1,110 @@
+<!-- page 容器 -->
+<div class="content-block" th:fragment="productInfo">
+	<!-- 标题栏 -->
+	<header class="bar bar-nav">
+		<a class="close-popup"> <span class="icon icon-left pull-left"></a>
+		<a class="icon icon-refresh pull-right" onclick="reload()"></a>
+		<h1 class="title" id="biaoti" th:text="${product.name}">标题</h1>
+	</header>
+
+
+	<!-- 这里是页面内容区 -->
+	<div class="content">
+		<!-- <p class="xqjj" th:text="'简介：'+${product.introduce}"></p> -->
+		<i th:text="${product.id}" id="pid" hidden="hidden"></i>
+		<div class="card headt">
+			<div class="card-content">
+				<div class="card-content-inner" >
+					<div class="grid-demo jjtop">
+						<div class="row jjtopr">
+							<div>
+								<img class="jjtopimg" th:alt="${product.name}" th:src="${product.logo}">
+							</div>
+							<div class="col-72 jj72">
+								<p class="jjtopname" th:text="${product.name}"></p>
+								<p class="jjcard xzd">
+									<i th:if="${product.isCredit} == 0" th:text="'无需征信 , '+${product.auditType}+'审核 , '+${product.typeS}" style="font-style: normal;"></i>
+									<i th:if="${product.isCredit} == 1" th:text="'需要征信  ,'+${product.auditType}+'审核 , '+${product.typeS}" style="font-style: normal;"></i>
+								</p>
+								<p class="jjcard" th:text="${product.remark}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-demo" style="background-color: #FFFFFF">
+			<div class="row" style="padding-top:2.5rem;">
+				<div class="col-40">额度
+							<p class="xzd" th:text="${product.startQuota}+'元-'+${product.endQuota}+'元'"></p></div>
+				<div class="col-30">期限
+							<p class="xzd" th:text="${product.cycle}+${product.cycleType}"></p></div>
+				<div class="col-30">费用
+							<p class="xzd" th:text="${product.rate}+'%'"></p></div>
+			</div>
+			<div class="row">
+				<div class="col-40">打款时间
+							<p class="xzd" th:text="${product.auditLong}"></p></div>
+				<div class="col-30">申请人数
+							<p class="xzd" th:text="${product.applyCount}+'人'"></p></div>
+				<div class="col-30">通过率
+							<p class="xzd" th:text="${product.passRate}+'%'"></p></div>
+			</div>
+		</div>
+
+		<div class="content-block-title sqgl">申请攻略</div>
+		<div class="list-block media-list">
+			<ul>
+				<li>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title-row">
+								<div class="sqgl">申请条件</div>
+							</div>
+							<p class="tja" th:utext="${product.applyCondition}"></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title-row">
+								<div class="sqgl">所需材料</div>
+							</div>
+							<p class="tja" th:utext="${product.applyInformation}"></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title-row">
+								<div class="sqgl">详细信息</div>
+							</div>
+							<p class="tja" th:if="${product.isCredit} == 0" th:utext="'平台名称 :  '+${product.name}+'<br/>征信要求 :  无需征信<br/> 审核方式 :  '+${product.auditType}+'审核<br/>客服热线 :  '+${product.servicePhone}+'<br/>'"></p>
+							<p class="tja" th:if="${product.isCredit} == 1" th:utext="'平台名称 :  '+${product.name}+'<br/>征信要求 :  需要征信<br/> 审核方式 :  '+${product.auditType}+'审核<br/>客服热线 :  '+${product.servicePhone}+'<br/>'"></p>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="commitbutton">
+			<p><a id="submitShop" th:onclick="'reqShop('+${product.id}+',\''+${product.url}+'\')'" href="#" class="button button-big btnb" >立即申请</a></p>
+		</div>
+	</div>
+</div>
+
+<!-- popup, panel 等放在这里 -->
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal">
+	<div class="content-block">
+		<p>这是一个侧栏</p>
+		<p></p>
+		<!-- Click on link with "close-panel" class will close panel -->
+		<p>
+			<a href="#" class="close-panel">关闭</a>
+		</p>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+<li th:each="product,stat: ${product}"><a href="#" class="item-link item-content tka" th:id="${product.id}">
+		<i th:if="${stat.index==0 && ftype==0}" th:text="${total}" id="htotal" hidden="hidden"></i>
+		<i th:if="${stat.index==0 && ftype==1}" th:text="${total}" id="ftotal" hidden="hidden"></i>
+		<i th:if="${stat.index==0 && ftype==0}" th:text="${nextPage}" id="hnextPage" hidden="hidden"></i>
+		<i th:if="${stat.index==0 && ftype==1}" th:text="${nextPage}" id="fnextPage" hidden="hidden"></i>
+		<div class="item-media">
+			<img th:attr="data-original=${product.logo}" style='width: 4rem;'
+				th:alt="${product.name}">
+			<noscript>
+				<img th:src="${product.logo}" style='width: 4rem;'
+				th:alt="${product.name}">
+			</noscript>
+		</div>
+		<div class="item-inner">
+			<div class="item-title-row">
+				<div class="item-title" th:text="${product.name}"></div>
+				<div class="xz">
+					通过率：<i class="xzc" th:text="${product.passRate}+'%'"></i>
+				</div>
+			</div>
+			<div class="xzi" th:text="${product.introduce}"></div>
+			<div class="item-title-row">
+				<div class="xzi">
+					额度：<i class="xzc"
+						th:text="${product.startQuota}+'-'+${product.endQuota}"></i>
+				</div>
+				<div class="xzi">
+					费用：<i class="xzc" th:text="${product.rate}+'%'"></i>
+				</div>
+			</div>
+		</div>
+</a></li>
