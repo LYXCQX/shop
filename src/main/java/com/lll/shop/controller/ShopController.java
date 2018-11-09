@@ -158,15 +158,15 @@ public class ShopController {
 	@RequestMapping("reqShop")
 	@ResponseBody
 	public BaseRes<ReqinfoPojo> reqShop(HttpServletRequest request, ReqinfoPojo reqinfo) {
-		log.info("用户点击借款链接请求：" + reqinfo.toString());
+		log.info("用户点击申请链接请求：" + reqinfo.toString());
 		BaseRes<ReqinfoPojo> baseRes = new BaseRes<ReqinfoPojo>();
 		try {
 			reqinfo.setIp(IpUtil.getIpAddr(request));
 			reqinfo.setType(1);
 			shopService.reqShop(reqinfo);
-			log.info("用户点击借款链接响应:" + baseRes.toString());
+			log.info("用户点击申请链接响应:" + baseRes.toString());
 		} catch (Exception e) {
-			log.error("用户点击借款链接抛出异常", e);
+			log.error("用户点击申请链接抛出异常", e);
 		}
 		return baseRes;
 	}

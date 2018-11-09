@@ -23,7 +23,7 @@ public class OrdersPojo {
 	private String bankCardNo;// 申请银行卡号
 	private String bankCardName;// 银行名称
 	private BigDecimal fee;// 手续费
-	private Integer days;// 借款天数
+	private Integer days;// 期限天数
 	private Integer type;//状态（0申请，1贷超）
 	private Date createTime;// 创建时间
 

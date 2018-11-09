@@ -341,6 +341,13 @@ function reload(){
 		}
 	})
 }
+$("#dark-switch").click(function(){
+	if($("body").hasClass('theme-dark')){
+		$("body").removeClass("theme-dark");
+	}else{
+		$("body").addClass("theme-dark");
+	}
+});
 $(function() {
 	$.init();
 });
