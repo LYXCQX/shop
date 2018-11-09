@@ -341,11 +341,31 @@ function reload(){
 		}
 	})
 }
-$("#dark-switch").click(function(){
-	if($("body").hasClass('theme-dark')){
-		$("body").removeClass("theme-dark");
-	}else{
-		$("body").addClass("theme-dark");
+$(".kzzt").click(function(e) {
+	if ($(e.target).attr("id") == "dark-switch") {
+		if ($("body").hasClass('theme-dark')) {
+			$("body").removeClass("theme-dark");
+		} else {
+			$("body").addClass("theme-dark");
+		}
+	} else if ($(e.target).attr("id") == "theme-pink") {
+		if ($("body").hasClass('theme-pink')) {
+			$("body").removeClass("theme-pink");
+		} else {
+			$("body").addClass("theme-pink");
+		}
+	} else if ($(e.target).attr("id") == "theme-green") {
+		if ($("body").hasClass('theme-green')) {
+			$("body").removeClass("theme-green");
+		} else {
+			$("body").addClass("theme-green");
+		}
+	} else if ($(e.target).attr("id") == "theme-yellow") {
+		if ($("body").hasClass('theme-yellow')) {
+			$("body").removeClass("theme-yellow");
+		} else {
+			$("body").addClass("theme-yellow");
+		}
 	}
 });
 $(function() {
