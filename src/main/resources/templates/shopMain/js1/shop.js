@@ -387,8 +387,8 @@ function unScroll() {
 function removeUnScroll() {
 	$(document).unbind("scroll.unable");
 }
-var $cov1Btn = $('.tc1>span')
-, $cov2Btn = $('.tc2>ul>li')
+var $tcc1B = $('.tc1>span')
+, $tcc2B = $('.tc2>ul>li')
 , $topSpan = $('.pTypes>span');
 /*------筛选弹窗------*/
 pTypesClick();
@@ -428,7 +428,7 @@ function pTypesClick() {
 tcClick();
 
 function tcClick() {
-   $cov1Btn.click(function () {
+   $tcc1B.click(function () {
        $(this).addClass('tc1Click').siblings('span').removeClass('tc1Click');
        $('.ptype>em').text($(this).text())
        reqDataf["type"] = $(this).attr("id");
@@ -436,7 +436,7 @@ function tcClick() {
        $('.find').empty();
        addItems(1,reqDataf);
    });
-   $cov2Btn.click(function () {
+   $tcc2B.click(function () {
 	   $(this).addClass('tc2Click').siblings('li').removeClass('tc2Click');
        $('.dked>em').text($(this).text().replace("万", "0000"));
        reqDataf["endQuota"] = $(this).text().replace("万", "0000").replace("元", "").replace("贷款额度", "");
