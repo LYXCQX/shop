@@ -3,7 +3,7 @@
 		<i th:if="${stat.index==0 && ftype==1}" th:text="${total}" id="ftotal" hidden="hidden"></i>
 		<i th:if="${stat.index==0 && ftype==0}" th:text="${nextPage}" id="hnextPage" hidden="hidden"></i>
 		<i th:if="${stat.index==0 && ftype==1}" th:text="${nextPage}" id="fnextPage" hidden="hidden"></i>
-		<div class="item-media">
+		<div class="item-media plogo">
 			<img th:attr="data-original=${product.logo}" style='width: 4rem;'
 				th:alt="${product.name}">
 			<noscript>

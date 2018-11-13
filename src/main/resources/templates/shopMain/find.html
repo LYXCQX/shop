@@ -5,44 +5,40 @@
 	<header class="bar bar-nav findTitle">
 		<h1 class="title ftitle">贷款超市</h1>
 	</header>
-
-	<div class="content infinite-scroll infinite-scroll-bottom"
+	<div class="pTypes">
+		<span class="ptype"><em>贷款分类</em><i></i></span> <span class="dked"><em>贷款额度</em><i></i></span>
+	</div>
+	<div class="tcc" style="display: hidden;">
+		<div class="tc1">
+			<span>贷款分类</span> <span th:each="type : ${types}" th:id="${type.id}"
+				th:text="${type.typeName}"></span>
+		</div>
+		<div class="tc2" id="wrapper2">
+			<ul>
+				<li>贷款额度</li>
+				<li>500元</li>
+				<li>1000元</li>
+				<li>1500元</li>
+				<li>2000元</li>
+				<li>3000元</li>
+				<li>4000元</li>
+				<li>5000元</li>
+				<li>6000元</li>
+				<li>7000元</li>
+				<li>8000元</li>
+				<li>9000元</li>
+				<li>10000元</li>
+				<li>15000元</li>
+				<li>20000元</li>
+				<li>30000元</li>
+				<li>50000元</li>
+				<li>10万元</li>
+				<li>20万元</li>
+			</ul>
+		</div>
+	</div>
+	<div class="content infinite-scroll infinite-scroll-bottom findScrell"
 		data-distance="50" id="findScrell">
-
-		<div class="pTypes">
-			<span class="ptype"><em>贷款分类</em><i></i></span>
-			<span class="dked"><em>贷款额度</em><i></i></span>
-		</div>
-		<div class="tcc" style="display: hidden;">
-			<div class="tc1" >
-				<span >贷款分类</span> 
-				<span th:each="type : ${types}" th:id="${type.id}" th:text="${type.typeName}"></span>
-			</div>
-			<div class="tc2" id="wrapper2">
-				<ul>
-					<li>贷款额度</li>
-					<li>500元</li>
-					<li>1000元</li>
-					<li>1500元</li>
-					<li>2000元</li>
-					<li>3000元</li>
-					<li>4000元</li>
-					<li>5000元</li>
-					<li>6000元</li>
-					<li>7000元</li>
-					<li>8000元</li>
-					<li>9000元</li>
-					<li>10000元</li>
-					<li>15000元</li>
-					<li>20000元</li>
-					<li>30000元</li>
-					<li>50000元</li>
-					<li>10万元</li>
-					<li>20万元</li>
-				</ul>
-			</div>
-		</div>
-		
 		<div class="txdqjg">
     		 同时申请多个产品，可大幅提高借款成功率
   		</div>
