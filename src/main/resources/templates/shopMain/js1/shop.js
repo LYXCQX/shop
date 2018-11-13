@@ -61,7 +61,6 @@
 				'display' : 'block'
 			});
 
-			// Links hover events ......
 			$(settings.modulid + ' ul li a').hover(function() {
 				$(this).css({
 					'color' : settings.linkhovercolor
@@ -75,7 +74,6 @@
 			);
 
 
-			// Arrows Click Events ......
 			$(settings.modulid + ' .bn-arrows span').click(function(e) {
 				if ($(this).attr('class') == "bn-arrows-left")
 					BnAutoPlay('prev');
@@ -83,7 +81,6 @@
 					BnAutoPlay('next');
 			});
 
-			// Timer events ...............
 			if (settings.autoplay == true) {
 				timername = setInterval(function() {
 					BnAutoPlay('next')
@@ -101,7 +98,6 @@
 				clearInterval(timername);
 			}
 
-			//timer and click events function ...........
 			function BnAutoPlay(pos) {
 				if (pos == "next") {
 					if ($(settings.modulid + ' ul li').length > activenewsid)
@@ -127,7 +123,6 @@
 				}
 			}
 
-			// links size calgulating function ...........
 			$(window).resize(function(e) {
 				if ($(settings.modulid).width() < 360) {
 					$(settings.modulid + ' .bn-title').html('&nbsp;');
@@ -157,7 +152,7 @@ $('#reminds').reminds({
 	titlebgcolor : '#099',
 	linkhovercolor : '#099',
 	/*border: '1px solid #099',*/
-	timer : 2000,
+	timer : 3000,
 	effect : 'slide'
 });
 function stop() {
@@ -174,6 +169,7 @@ var fmaxItems = 100;
 // 每次加载添加多少条目
 var itemsPerLoad = 6;
 var pageNum = 1 ;
+var reqDataf={};
 function addItems(ftype,reqData) {
 	reqData["ftype"]=ftype;
 	// 生成新条目的HTML
@@ -209,7 +205,6 @@ function addItems(ftype,reqData) {
 			}
 		},
 		error : function(data) {
-			alert(eval(data ));
 			$.toast("老哥，不要慌，请刷新页面后重试。。。。。。");
 		}
 	});
@@ -217,11 +212,7 @@ function addItems(ftype,reqData) {
 }
 //预先加载20条
 addItems(0,{});
-addItems(1,{});
-
-function lazy(){
-	lazy();
-}
+addItems(1,reqDataf);
 
 // 上次加载的序号
 
@@ -244,6 +235,7 @@ $(document).on('infinite', '.infinite-scroll-bottom', function() {
 				$.detachInfiniteScroll($('#homeScroll'));
 				// 删除加载提示符
 				$('#homePreloader').remove();
+				$.toast("老哥,没有更多了");
 				loading = false;
 				return;
 			}
@@ -267,11 +259,12 @@ $(document).on('infinite', '.infinite-scroll-bottom', function() {
 				$.detachInfiniteScroll($('#findScrell'));
 				// 删除加载提示符
 				$('#findPreloader').remove();
+				$.toast("老哥,没有更多了");
 				loading = false;
 				return;
 			}
 			// 添加新条目
-			addItems(1,{});
+			addItems(1,reqDataf);
 			// 重置加载flag
 			loading = false;
 		}, 200);
@@ -294,7 +287,7 @@ $(document).on('click', '.tka', function() {
 function reqShop(pid,url) {
 	$.ajax({
 		type : "GET",
-		url : "../shop/reqGoods",
+		url : "../shop/reqShop",
 		data : {
 			pid : pid,
 		},
@@ -342,21 +335,116 @@ function reload(){
 		}
 	})
 }
-jQuery(document).ready(function () {
-	alert("我要后退");
-    if (window.history && window.history.pushState) {
-        $(window).on('popstate', function () {
-　　/// 当点击浏览器的 后退和前进按钮 时才会被触发， 
-           /* window.history.pushState('forward', null, ''); 
-            window.history.forward(1);*/
-        	alert("我要后退");
-        	$.closeModal('.popup-services');
-        });
-    }
-//
-    window.history.pushState('forward', null, '');  //在IE中必须得有这两行
-    window.history.forward(1);
+$(".kzzt").click(function(e) {
+	if ($(e.target).attr("id") == "dark-switch") {
+		if ($("body").hasClass('theme-dark')) {
+			$("body").removeClass("theme-dark");
+			$(".pTypes").removeClass("darkY");
+			$(".easing").removeClass("darkY");
+			$(".tc1").removeClass("darkY");
+			$(".tc2").removeClass("darkY");
+			$(".tc2 li").removeClass("darkY");
+		} else {
+			$("body").addClass("theme-dark");
+			$(".pTypes").addClass("darkY");
+			$(".easing").addClass("darkY");
+			$(".tc1").addClass("darkY");
+			$(".tc2").addClass("darkY");
+			$(".tc2 li").addClass("darkY");
+		}
+	} else if ($(e.target).attr("id") == "theme-pink") {
+		if ($("body").hasClass('theme-pink')) {
+			$("body").removeClass("theme-pink");
+		} else {
+			$("body").addClass("theme-pink");
+		}
+	} else if ($(e.target).attr("id") == "theme-green") {
+		if ($("body").hasClass('theme-green')) {
+			$("body").removeClass("theme-green");
+		} else {
+			$("body").addClass("theme-green");
+		}
+	} else if ($(e.target).attr("id") == "theme-yellow") {
+		if ($("body").hasClass('theme-yellow')) {
+			$("body").removeClass("theme-yellow");
+		} else {
+			$("body").addClass("theme-yellow");
+		}
+	}
 });
+/**
+ * 禁用滚动条
+ */
+function unScroll() {
+	var top = $(document).scrollTop();
+	$(document).on('scroll.unable', function(e) {
+		$(document).scrollTop(top);
+	})
+}
+/**
+ * 解除禁用滚动条
+ */
+function removeUnScroll() {
+	$(document).unbind("scroll.unable");
+}
+var $cov1Btn = $('.tc1>span')
+, $cov2Btn = $('.tc2>ul>li')
+, $topSpan = $('.pTypes>span');
+/*------筛选弹窗------*/
+pTypesClick();
+
+function pTypesClick() {
+	/*------顶部筛选弹窗------*/
+	$topSpan.click(function() {
+		var idx = $(this).index();
+		if ($(this).hasClass('topClick')) {
+			$(this).removeClass('topClick');
+			$('.tcc').hide();
+			removeUnScroll();
+		} else {
+			$(this).addClass('topClick').siblings('span').removeClass('topClick');
+			$('.tcc').show();
+			var coverH1 = $('.tc1').height(),
+				coverH2 = $('.tc2').height()
+			$('.tc1').css({
+				"top" : -coverH1
+			});
+			$('.tc2').css({
+				"top" : -coverH2
+			});
+			$('.tcc>div').eq(idx).animate({
+				"top" : 0
+			});
+			unScroll();
+		}
+		$('.tcc').click(function() {
+			$(this).hide();
+			$topSpan.removeClass('topClick');
+			removeUnScroll();
+		})
+	});
+}
+/*------弹窗内选项点击------*/
+tcClick();
+
+function tcClick() {
+   $cov1Btn.click(function () {
+       $(this).addClass('tc1Click').siblings('span').removeClass('tc1Click');
+       $('.ptype>em').text($(this).text())
+       reqDataf["type"] = $(this).attr("id");
+       $("#fnextPage").text(1);
+       $('.find').empty();
+       addItems(1,reqDataf);
+   });
+   $cov2Btn.click(function () {
+	   $(this).addClass('tc2Click').siblings('li').removeClass('tc2Click');
+       $('.dked>em').text($(this).text().replace("万", "0000"));
+       reqDataf["endQuota"] = $(this).text().replace("万", "0000").replace("元", "").replace("贷款额度", "");
+       $("#fnextPage").text(1);
+       $('.find').empty();
+       addItems(1,reqDataf);
+   });
+}
 $(function() {
 	$.init();
 });

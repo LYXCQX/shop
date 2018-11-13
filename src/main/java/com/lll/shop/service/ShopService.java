@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.lll.shop.pojo.ADPojo;
 import com.lll.shop.pojo.Page;
 import com.lll.shop.pojo.ProductPojo;
+import com.lll.shop.pojo.ProductTypePojo;
 import com.lll.shop.pojo.ReqinfoPojo;
 import com.lll.shop.pojo.res.SyListRes;
 
@@ -52,5 +53,11 @@ public interface ShopService {
 	 * @param reqinfo
 	 */
 	public void reqShop(ReqinfoPojo reqinfo);
+
+	/**
+	 * 查询产品类型列表
+	 * @return
+	 */
+	public List<ProductTypePojo> getTypeList();
 
 }

@@ -147,12 +147,30 @@ public class ShopController {
 			reqinfo.setIp(IpUtil.getIpAddr(request));
 			shopService.saveReqinfo(reqinfo);
 			model.addAttribute("ad", shopService.getAd(new ADPojo()));
+			model.addAttribute("types", shopService.getTypeList());
 //			model.addAttribute("product", shopService.getProduct(new ProductPojo()));
 			log.info("用户信息响应:" + model.toString());
 		} catch (Exception e) {
 			log.error("用户信息抛出异常", e);
 		}
 		return "shopMain/main";
+	}
+	/**
+	 * 查询产品类型列表
+	 * 
+	 * @param reqinfo
+	 * @return
+	 */
+	@RequestMapping("getTypeList")
+	public String getTypeList(Model model) {
+		log.info("查询产品类型列表");
+		try {
+			model.addAttribute("types", shopService.getTypeList());
+			log.info("查询产品类型列表响应:" + model.toString());
+		} catch (Exception e) {
+			log.error("查询产品类型列表抛出异常", e);
+		}
+		return "shopMain/find :: pTypeList";
 	}
 	
 	@RequestMapping("reqShop")

@@ -9,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lll.shop.dao.ADDao;
+import com.lll.shop.dao.ProducTypeDao;
 import com.lll.shop.dao.ProductDao;
 import com.lll.shop.dao.ReqinfoDao;
 import com.lll.shop.pojo.ADPojo;
 import com.lll.shop.pojo.Page;
 import com.lll.shop.pojo.ProductPojo;
+import com.lll.shop.pojo.ProductTypePojo;
 import com.lll.shop.pojo.ReqinfoPojo;
 import com.lll.shop.pojo.res.SyListRes;
 import com.lll.shop.service.ShopService;
@@ -27,6 +29,8 @@ public class ShopServiceImpl implements ShopService{
 	private ProductDao productDao;
 	@Autowired
 	private ReqinfoDao reqinfoDao;
+	@Autowired
+	private ProducTypeDao producTypeDao;
 	/**
 	 * 查询广告
 	 */
@@ -89,6 +93,10 @@ public class ShopServiceImpl implements ShopService{
 		ProductPojo  productpar =new ProductPojo();
 		productpar.setId(reqinfo.getPid());
 		productDao.updateApplyCount(productpar);
+	}
+	@Override
+	public List<ProductTypePojo> getTypeList() {
+		return producTypeDao.getAll();
 	}
 
 }

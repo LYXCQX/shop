@@ -30,7 +30,7 @@ public interface ProductDao {
 			+ "<if test='id != null'> and id = #{id}  </if> "
 			+ "<if test='type != null'>  and FIND_IN_SET(#{type},type) </if> "
 			+ "<if test='startQuota != null'>  and startQuota <![CDATA[ >= ]]> #{startQuota} </if> "
-			+ "<if test='endQuota != null'>  and endQuota <![CDATA[ <= ]]> #{endQuota} </if> "
+			+ "<if test='endQuota != null'>  and (endQuota <![CDATA[ <= ]]> #{endQuota} || startQuota <![CDATA[ <= ]]> #{endQuota}) </if> "
 			+ "<if test='cycle != null'>  and cycle <![CDATA[ > ]]> #{cycle} and cycleType =#{cycleType} </if> "
 			+ "<if test='endCycle != null'>  and endCycle <![CDATA[ < ]]> #{endCycle} and cycleType =#{cycleType} </if> "
 			+ "<if test='isCredit != null'>  and isCredit = #{isCredit} </if> "
