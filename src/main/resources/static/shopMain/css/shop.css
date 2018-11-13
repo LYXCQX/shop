@@ -281,11 +281,12 @@ img {
     height: 2.2rem;
     font-size: 0;
     border-bottom: 1px solid #e7e7e7;
+    color: #4d4d4d;
 }
 
 .pTypes span {
     display: inline-block;
-    font-size: .28rem;
+    font-size: 0.65rem;
     height: 100%;
     text-align: center;
 }
@@ -348,12 +349,11 @@ em {
     z-index: 1000;
     font-size: 0;
     overflow: hidden;
-    font-size: .28rem;
-}
-
-.tcc {
+    font-size: 0.65rem;
+    color: #4d4d4d;
     display: none;
 }
+
 .tcc .tc1 {
     position: absolute;
     left: 0;
@@ -378,9 +378,9 @@ em {
     float: left;
     display: block;
     width: 20%;
-    height: 1.2rem;
+    height: 1.5rem;
     text-align: center;
-    line-height: 1.2rem;
+    line-height: 1.5rem;
 }
 
 
