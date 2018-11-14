@@ -473,14 +473,14 @@ webSocket.onmessage = function(event) {
 	console.log('WebSocket收到消息：%c' + event.data, 'color:green');
 	//获取服务端消息
 	var message = JSON.parse(event.data) || {};
-	var msg = message.message;
+	var msg = message.msg;
 	var pdata = message.data;
 	$.notification({
 		title : pdata.name,
-		text : message.message,
+		text : message.msg,
 		media : "<img src='../shopMain/images/0.jpg'>",
 		data : "123",
-		time:4000,
+		time:5000,
 		onClick : function(data) {
 			loadPopup(pdata.id);
 			//关闭通知
