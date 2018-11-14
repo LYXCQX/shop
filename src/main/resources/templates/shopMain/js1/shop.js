@@ -272,8 +272,12 @@ $(document).on('infinite', '.infinite-scroll-bottom', function() {
 });
 
 $(document).on('click', '.tka', function() {
+	loadPopup($(this).attr("id"));
+});
+
+function loadPopup(id){
 	$(".popup").load("../shop/getProductInfo", {
-		id : $(this).attr("id")
+		id : id
 	}, function(response, statusTxt, xhr) {
 		if (statusTxt == "success") {
 //			alert(response);
@@ -282,8 +286,7 @@ $(document).on('click', '.tka', function() {
 		}
 	})
 	$.popup('.popup-services');
-});
-
+}
 function reqShop(pid,url) {
 	$.ajax({
 		type : "GET",

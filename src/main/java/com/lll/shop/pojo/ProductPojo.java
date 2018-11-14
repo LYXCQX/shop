@@ -74,8 +74,9 @@ public class ProductPojo {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public ProductPojo setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getName() {
