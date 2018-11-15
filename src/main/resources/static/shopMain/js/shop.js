@@ -478,7 +478,7 @@ webSocket.onmessage = function(event) {
 	$.notification({
 		title : pdata.name,
 		text : message.msg,
-		media : "<img src='../shopMain/images/0.jpg'>",
+		media : "<img src='"+pdata.logo+"'>",
 		data : "123",
 		time:5000,
 		onClick : function(data) {
