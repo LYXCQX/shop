@@ -52,6 +52,7 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(Session session, String jsonStr) {
 		try {
+			log.info("收到消息："+jsonStr);
 			Message message = JSON.parseObject(jsonStr, Message.class);
 			if (Message.CP.equals(message.getType())) {
 				ProductPojo pos = new ProductPojo().setId(message.getPid());

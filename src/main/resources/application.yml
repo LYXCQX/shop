@@ -40,14 +40,18 @@ pagehelper:
 cors:
   patchs:
     - 
-      - "/api/**"
-      - http://localhost:8081
+      - "/shop/**"
+      - http://localhost:6837
+      - http://localhost:6041
+      - http://localhost:8080
     - 
       - "/lll/**"
-      - http://localhost:8082
+      - http://localhost:9564
   ip:
-    - http://localhost:8081
-    - http://localhost:8082
+    - http://localhost:6837
+    - http://localhost:6041
+    - http://localhost:8080
+    - http://localhost:3205
     
 logging:
   config: classpath:log4j2.yml

@@ -14,11 +14,14 @@ public class SyListRes {
 	private BigDecimal rate;// 利息
 	private Integer passRate;// 通过率
 	private String auditType;// 审核方式
+	private Integer applyCount;// 申请人数
+	private Integer ptype;
 	@Override
 	public String toString() {
 		return "SyListRes [id=" + id + ", name=" + name + ", introduce=" + introduce + ", logo=" + logo + ", isDetail="
 				+ isDetail + ", type=" + type + ", startQuota=" + startQuota + ", endQuota=" + endQuota + ", rate="
-				+ rate + ", passRate=" + passRate + ", auditType=" + auditType + "]";
+				+ rate + ", passRate=" + passRate + ", auditType=" + auditType + ", applyCount=" + applyCount
+				+ ", ptype=" + ptype + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -85,5 +88,17 @@ public class SyListRes {
 	}
 	public void setAuditType(String auditType) {
 		this.auditType = auditType;
+	}
+	public Integer getApplyCount() {
+		return applyCount;
+	}
+	public void setApplyCount(Integer applyCount) {
+		this.applyCount = applyCount;
+	}
+	public Integer getPtype() {
+		return ptype;
+	}
+	public void setPtype(Integer ptype) {
+		this.ptype = ptype;
 	}
 }

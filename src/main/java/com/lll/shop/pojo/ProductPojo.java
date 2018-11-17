@@ -38,6 +38,7 @@ public class ProductPojo {
 	private String auditType;// 审核方式
 	private Integer sort;// 排序
 	private String remark;
+	private Integer ptype;
 	private Date createTime;// 创建时间
 	private Date updateTime;// 修改时间
 	private Map<String, String> typeM = new HashMap<String, String>();
@@ -53,8 +54,9 @@ public class ProductPojo {
 				+ ", endQuota=" + endQuota + ", rate=" + rate + ", passRate=" + passRate + ", isPop=" + isPop
 				+ ", cycle=" + cycle + ", endCycle=" + endCycle + ", cycleType=" + cycleType + ", auditLong="
 				+ auditLong + ", applyCount=" + applyCount + ", isCredit=" + isCredit + ", auditType=" + auditType
-				+ ", sort=" + sort + ", remark=" + remark + ", createTime=" + createTime + ", updateTime=" + updateTime
-				+ ", typeM=" + typeM + ", typeS=" + typeS + ", servicePhone=" + servicePhone + ", ftype=" + ftype + "]";
+				+ ", sort=" + sort + ", remark=" + remark + ", ptype=" + ptype + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", typeM=" + typeM + ", typeS=" + typeS + ", servicePhone="
+				+ servicePhone + ", ftype=" + ftype + "]";
 	}
 
 	public void init() {
@@ -309,6 +311,14 @@ public class ProductPojo {
 
 	public void setFtype(int ftype) {
 		this.ftype = ftype;
+	}
+
+	public Integer getPtype() {
+		return ptype;
+	}
+
+	public void setPtype(Integer ptype) {
+		this.ptype = ptype;
 	}
 
 }

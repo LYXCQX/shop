@@ -10,6 +10,7 @@ public class Message {
 	public static final String QUIT = "QUIT";
 
 	private String type;// 消息类型
+	private String userName;// 消息类型
 
 	private String sendUserId; // 发送人
 	
@@ -25,8 +26,8 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message [type=" + type + ", sendUserId=" + sendUserId + ", pid=" + pid + ", toUserId=" + toUserId
-				+ ", msg=" + msg + ", onlineCount=" + onlineCount + ", data=" + data + "]";
+		return "Message [type=" + type + ", userName=" + userName + ", sendUserId=" + sendUserId + ", pid=" + pid
+				+ ", toUserId=" + toUserId + ", msg=" + msg + ", onlineCount=" + onlineCount + ", data=" + data + "]";
 	}
 
 	public String getType() {
@@ -83,6 +84,14 @@ public class Message {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

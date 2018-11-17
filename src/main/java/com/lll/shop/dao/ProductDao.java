@@ -26,7 +26,7 @@ public interface ProductDao {
 	@Select("select * from product where isPop=0 and id = #{id} ")
 	public ProductPojo getProductInfo(ProductPojo productPojo);
 	
-	@Select("<script> select id,name,introduce,logo,isDetail,type,startQuota,endQuota,rate,passRate,auditType from product where isPop=0 "
+	@Select("<script> select id,name,introduce,logo,isDetail,type,startQuota,endQuota,rate,passRate,auditType,ptype,applyCount from product where isPop=0 "
 			+ "<if test='id != null'> and id = #{id}  </if> "
 			+ "<if test='type != null'>  and FIND_IN_SET(#{type},type) </if> "
 			+ "<if test='startQuota != null'>  and startQuota <![CDATA[ >= ]]> #{startQuota} </if> "

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.lll.shop.pojo.ADPojo;
@@ -23,7 +24,7 @@ import com.lll.shop.pojo.res.SyListRes;
 import com.lll.shop.service.ShopService;
 import com.lll.shop.util.IpUtil;
 
-@Controller
+@RestController
 @RequestMapping("shop")
 public class ShopController {
 
@@ -96,21 +97,18 @@ public class ShopController {
 	 */
 	@RequestMapping("getSyList")
 //	@ResponseBody
-	public String getSyList(Page<ProductPojo> productPojo,Model model) {
+	public BaseRes<SyListRes> getSyList(Page<ProductPojo> productPojo,Model model) {
 		log.info("查询首页产品信息请求：" + productPojo.toString());
 		BaseRes<SyListRes> baseRes = new BaseRes<SyListRes>();
 		try {
 			PageInfo<SyListRes> pageInfo = shopService.getSyList(productPojo);
-			model.addAttribute("product", pageInfo.getList());
-			model.addAttribute("total", pageInfo.getTotal());
-			model.addAttribute("nextPage", pageInfo.getNextPage());
-			model.addAttribute("ftype", productPojo.getReqData().getFtype());
-			baseRes.setPageInfo(pageInfo);
+//			baseRes.setPageInfo(pageInfo);
+			baseRes.setDataList(pageInfo.getList());
 			log.info("查询首页产品信息响应:" + baseRes.toString());
 		} catch (Exception e) {
 			log.error("查询首页产品信息抛出异常", e);
 		}
-		return "shopMain/shopList";
+		return baseRes;
 	}
 
 	/**
@@ -141,19 +139,20 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping("reqinfo")
-	public String saveReqinfo(HttpServletRequest request, ReqinfoPojo reqinfo, Model model) {
+	public BaseRes<ADPojo> saveReqinfo(HttpServletRequest request, ReqinfoPojo reqinfo, Model model) {
 		log.info("用户信息请求：" + reqinfo.toString());
+		BaseRes<ADPojo> res =new BaseRes<ADPojo>();
 		try {
 			reqinfo.setIp(IpUtil.getIpAddr(request));
 			shopService.saveReqinfo(reqinfo);
-			model.addAttribute("ad", shopService.getAd(new ADPojo()));
-			model.addAttribute("types", shopService.getTypeList());
-//			model.addAttribute("product", shopService.getProduct(new ProductPojo()));
+			res.setDataList(shopService.getAd(new ADPojo()));
 			log.info("用户信息响应:" + model.toString());
 		} catch (Exception e) {
+			res.setState(500);
+			res.setMessage("服务器开小差了，请刷新再试...");
 			log.error("用户信息抛出异常", e);
 		}
-		return "shopMain/main";
+		return res;
 	}
 	/**
 	 * 查询产品类型列表
