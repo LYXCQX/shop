@@ -34,7 +34,7 @@ public interface ProductDao {
 			+ "<if test='cycle != null'>  and cycle <![CDATA[ > ]]> #{cycle} and cycleType =#{cycleType} </if> "
 			+ "<if test='endCycle != null'>  and endCycle <![CDATA[ < ]]> #{endCycle} and cycleType =#{cycleType} </if> "
 			+ "<if test='isCredit != null'>  and isCredit = #{isCredit} </if> "
-			+ "<if test='sort != null'> order by sort desc </if> </script>"
+			+ "<if test='sortType != null'> order by #{sortType} desc </if> </script>"
 			)
 	public List<SyListRes> getSyList(ProductPojo productPojo);
 

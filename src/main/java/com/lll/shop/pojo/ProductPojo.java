@@ -45,6 +45,7 @@ public class ProductPojo {
 	private String typeS ="";
 	private String servicePhone ="";
 	private int ftype;
+	private String sortType;
 
 	@Override
 	public String toString() {
@@ -56,7 +57,7 @@ public class ProductPojo {
 				+ auditLong + ", applyCount=" + applyCount + ", isCredit=" + isCredit + ", auditType=" + auditType
 				+ ", sort=" + sort + ", remark=" + remark + ", ptype=" + ptype + ", createTime=" + createTime
 				+ ", updateTime=" + updateTime + ", typeM=" + typeM + ", typeS=" + typeS + ", servicePhone="
-				+ servicePhone + ", ftype=" + ftype + "]";
+				+ servicePhone + ", ftype=" + ftype + ", sortType=" + sortType + "]";
 	}
 
 	public void init() {
@@ -319,6 +320,14 @@ public class ProductPojo {
 
 	public void setPtype(Integer ptype) {
 		this.ptype = ptype;
+	}
+
+	public String getSortType() {
+		return sortType;
+	}
+
+	public void setSortType(String sortType) {
+		this.sortType = sortType;
 	}
 
 }
