@@ -8,6 +8,6 @@ import com.lll.shop.pojo.ProductTypePojo;
 
 public interface ProducTypeDao {
 
-	@Select("select * from productType")
+	@Select("select * from productType order by id")
 	public List<ProductTypePojo> getAll();
 }

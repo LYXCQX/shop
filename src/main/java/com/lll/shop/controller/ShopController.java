@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +18,7 @@ import com.lll.shop.pojo.ADPojo;
 import com.lll.shop.pojo.BaseRes;
 import com.lll.shop.pojo.Page;
 import com.lll.shop.pojo.ProductPojo;
+import com.lll.shop.pojo.ProductTypePojo;
 import com.lll.shop.pojo.ReqinfoPojo;
 import com.lll.shop.pojo.res.SyListRes;
 import com.lll.shop.service.ShopService;
@@ -161,15 +161,16 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping("getTypeList")
-	public String getTypeList(Model model) {
+	public BaseRes<ProductTypePojo> getTypeList(Model model) {
 		log.info("查询产品类型列表");
+		BaseRes<ProductTypePojo> res =new BaseRes<ProductTypePojo>();
 		try {
-			model.addAttribute("types", shopService.getTypeList());
-			log.info("查询产品类型列表响应:" + model.toString());
+			res.setDataList(shopService.getTypeList());
+			log.info("查询产品类型列表响应:" + res.toString());
 		} catch (Exception e) {
 			log.error("查询产品类型列表抛出异常", e);
 		}
-		return "shopMain/find :: pTypeList";
+		return res;
 	}
 	
 	@RequestMapping("reqShop")

@@ -32,7 +32,7 @@ public interface ProductDao {
 			+ "<if test='startQuota != null'>  and startQuota <![CDATA[ >= ]]> #{startQuota} </if> "
 			+ "<if test='endQuota != null'>  and (endQuota <![CDATA[ <= ]]> #{endQuota} || startQuota <![CDATA[ <= ]]> #{endQuota}) </if> "
 			+ "<if test='cycle != null'>  and cycle <![CDATA[ > ]]> #{cycle} and cycleType =#{cycleType} </if> "
-			+ "<if test='endCycle != null'>  and endCycle <![CDATA[ < ]]> #{endCycle} and cycleType =#{cycleType} </if> "
+			+ "<if test='endCycle != null'>  and (endCycle <![CDATA[ <= ]]> #{endCycle} || cycle <![CDATA[ <= ]]> #{endCycle}) </if> "
 			+ "<if test='isCredit != null'>  and isCredit = #{isCredit} </if> "
 			+ "<if test='sortType != null'> order by #{sortType} desc </if> </script>"
 			)
