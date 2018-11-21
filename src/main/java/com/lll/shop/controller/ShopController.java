@@ -78,16 +78,17 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping("getProductInfo")
-	public String getProductInfo(ProductPojo productpar,Model model) {
+	public BaseRes<ProductPojo> getProductInfo(ProductPojo productpar,Model model) {
 		log.info("查询产品详情信息请求：" + productpar.toString());
+		BaseRes<ProductPojo> baseRes = new BaseRes<ProductPojo>();
 		try {
 			ProductPojo productPojo = shopService.getProductInfo(productpar);
-			model.addAttribute("product", productPojo);
+			baseRes.setData(productPojo);
 			log.info("查询产品详情信息响应:" + productPojo.toString());
 		} catch (Exception e) {
 			log.error("查询产品详情信息抛出异常", e);
 		}
-		return "shopMain/shopInfo :: productInfo";
+		return baseRes;
 	}
 	/**
 	 * 查询产品
@@ -96,13 +97,11 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping("getSyList")
-//	@ResponseBody
 	public BaseRes<SyListRes> getSyList(Page<ProductPojo> productPojo,Model model) {
 		log.info("查询首页产品信息请求：" + productPojo.toString());
 		BaseRes<SyListRes> baseRes = new BaseRes<SyListRes>();
 		try {
 			PageInfo<SyListRes> pageInfo = shopService.getSyList(productPojo);
-//			baseRes.setPageInfo(pageInfo);
 			baseRes.setDataList(pageInfo.getList());
 			log.info("查询首页产品信息响应:" + baseRes.toString());
 		} catch (Exception e) {
