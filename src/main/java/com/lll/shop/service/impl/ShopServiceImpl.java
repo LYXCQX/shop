@@ -55,7 +55,8 @@ public class ShopServiceImpl implements ShopService{
 	@Override
 	public ProductPojo getProductInfo(ProductPojo productpar) {
 		ProductPojo  productPojo= productDao.getProductInfo(productpar);
-		productPojo.init();
+		List<ProductTypePojo> listPro=producTypeDao.getAll();
+		productPojo.init(listPro);
 		return productPojo;
 	}
 	/**

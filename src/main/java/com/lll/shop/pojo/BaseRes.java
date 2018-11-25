@@ -5,11 +5,17 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 
 public class BaseRes<T> {
-	private Integer state =0;
+	private Integer state;
 	private String message;
 	private T data;
 	private List<T> dataList;
 	private PageInfo<T> pageInfo;
+
+	
+	public BaseRes() {
+		this.state = ResCode.SUCCESS.getKey();
+		this.message = ResCode.SUCCESS.getValue();
+	}
 
 	@Override
 	public String toString() {
@@ -31,6 +37,11 @@ public class BaseRes<T> {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public void setRes(ResCode resCode) {
+		this.state = resCode.getKey();
+		this.message = resCode.getValue();
 	}
 
 	public T getData() {

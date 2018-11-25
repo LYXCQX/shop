@@ -28,7 +28,12 @@ server:
     - application/octet-stream
     - application/json
 
-
+#spring.servlet.multipart.enabled = true ＃是否启用对分段上传的支持。
+#spring.servlet.multipart.file-size-threshold = 0B ＃将文件写入磁盘后的阈值。
+#spring.servlet.multipart.location = ＃上传文件的中间位置。
+#spring.servlet.multipart.max-file-size = 1MB ＃最大文件大小。
+#spring.servlet.multipart.max-request-size = 10MB ＃最大请求大小。
+#spring.servlet.multipart.resolve-lazily = false ＃是否在文件或参数访问时懒惰地解析多部分请求。
 #分页插件配置
 pagehelper:
   helper-dialect: mysql #分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。 你可以配置helperDialect属性来指定分页插件使用哪种方言。配置时，可以使用下面的缩写值：oracle,mysql,mariadb,sqlite,hsqldb,postgresql,db2,sqlserver,informix,h2,sqlserver2012,derby
@@ -40,13 +45,15 @@ pagehelper:
 cors:
   patchs:
     - 
-      - "/shop/**"
+      - /shop/**
       - http://localhost:6837
       - http://localhost:6041
       - http://localhost:8080
     - 
-      - "/lll/**"
+      - /user/**
       - http://localhost:9564
+      - http://localhost:6041
+      - http://localhost:8080
   ip:
     - http://localhost:6837
     - http://localhost:6041

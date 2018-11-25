@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -15,10 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @ConfigurationProperties(prefix = "cors")
-public class CorsConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
-	private static final Logger log = LoggerFactory.getLogger(CorsConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(WebMvcConfig.class);
 
+	@Autowired
+	private UserInterceptor userInterceptor;
+	
 	private List<String[]> patchs;
 	private String[] ip;
 
@@ -31,6 +36,9 @@ public class CorsConfig implements WebMvcConfigurer {
 		}
 	}
 
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(userInterceptor).addPathPatterns("/user/**").excludePathPatterns("/user/register").excludePathPatterns("/user/login"); 
+	}
 	@Override
 	public String toString() {
 		return "CorsConfig [patchs=" + patchs + ", ip=" + Arrays.toString(ip) + "]";

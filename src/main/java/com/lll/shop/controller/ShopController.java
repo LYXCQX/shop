@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
@@ -34,7 +33,6 @@ public class ShopController {
 	private ShopService shopService;
 
 	@RequestMapping("getAd")
-	@ResponseBody
 	public BaseRes<ADPojo> getAd(ADPojo aDPar) {
 		log.info("查询广告请求：" + aDPar.toString());
 		List<ADPojo> aDPojoList = new ArrayList<ADPojo>();
@@ -56,7 +54,6 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping("getProduct")
-	@ResponseBody
 	public BaseRes<ProductPojo> getProduct(Page<ProductPojo> productpar,Model model) {
 		log.info("查询产品信息请求：" + productpar.toString());
 		BaseRes<ProductPojo> baseRes = new BaseRes<ProductPojo>();
@@ -116,20 +113,19 @@ public class ShopController {
 	 * @param productpar
 	 * @return
 	 */
-	@RequestMapping("updateApplyCount")
-	@ResponseBody
-	public BaseRes<Integer> updateApplyCount(ProductPojo productpar) {
-		log.info("修改产品信息请求：" + productpar.toString());
-		BaseRes<Integer> baseRes = new BaseRes<Integer>();
-		try {
-			int updateCount = shopService.updateApplyCount(productpar);
-			log.info("修改产品信息响应:" + updateCount);
-		} catch (Exception e) {
-			log.error("修改产品信息抛出异常", e);
-			baseRes.setState(500);
-		}
-		return baseRes;
-	}
+//	@RequestMapping("updateApplyCount")
+//	public BaseRes<Integer> updateApplyCount(ProductPojo productpar) {
+//		log.info("修改产品信息请求：" + productpar.toString());
+//		BaseRes<Integer> baseRes = new BaseRes<Integer>();
+//		try {
+//			int updateCount = shopService.updateApplyCount(productpar);
+//			log.info("修改产品信息响应:" + updateCount);
+//		} catch (Exception e) {
+//			log.error("修改产品信息抛出异常", e);
+//			baseRes.setState(500);
+//		}
+//		return baseRes;
+//	}
 
 	/**
 	 * 用于记录用户访问记录
@@ -173,7 +169,6 @@ public class ShopController {
 	}
 	
 	@RequestMapping("reqShop")
-	@ResponseBody
 	public BaseRes<ReqinfoPojo> reqShop(HttpServletRequest request, ReqinfoPojo reqinfo) {
 		log.info("用户点击申请链接请求：" + reqinfo.toString());
 		BaseRes<ReqinfoPojo> baseRes = new BaseRes<ReqinfoPojo>();

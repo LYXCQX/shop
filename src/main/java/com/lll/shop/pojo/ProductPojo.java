@@ -2,8 +2,11 @@ package com.lll.shop.pojo;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.lll.shop.dao.ProducTypeDao;
 
 /**
  * 产品表
@@ -12,6 +15,8 @@ import java.util.Map;
  *
  */
 public class ProductPojo {
+	@Autowired
+	private ProducTypeDao producTypeDao;
 	private Integer id;
 	private String name;// 产品名称
 	private String company;// 公司
@@ -41,7 +46,7 @@ public class ProductPojo {
 	private Integer ptype;
 	private Date createTime;// 创建时间
 	private Date updateTime;// 修改时间
-	private Map<String, String> typeM = new HashMap<String, String>();
+//	private Map<String, String> typeM = new HashMap<String, String>();
 	private String typeS ="";
 	private String servicePhone ="";
 	private int ftype;
@@ -49,27 +54,44 @@ public class ProductPojo {
 
 	@Override
 	public String toString() {
-		return "ProductPojo [id=" + id + ", name=" + name + ", company=" + company + ", introduce=" + introduce
-				+ ", logo=" + logo + ", url=" + url + ", isDetail=" + isDetail + ", type=" + type + ", applyCondition="
-				+ applyCondition + ", applyInformation=" + applyInformation + ", startQuota=" + startQuota
-				+ ", endQuota=" + endQuota + ", rate=" + rate + ", passRate=" + passRate + ", isPop=" + isPop
-				+ ", cycle=" + cycle + ", endCycle=" + endCycle + ", cycleType=" + cycleType + ", auditLong="
-				+ auditLong + ", applyCount=" + applyCount + ", isCredit=" + isCredit + ", auditType=" + auditType
-				+ ", sort=" + sort + ", remark=" + remark + ", ptype=" + ptype + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + ", typeM=" + typeM + ", typeS=" + typeS + ", servicePhone="
-				+ servicePhone + ", ftype=" + ftype + ", sortType=" + sortType + "]";
+		return "ProductPojo [producTypeDao=" + producTypeDao + ", id=" + id + ", name=" + name + ", company=" + company
+				+ ", introduce=" + introduce + ", logo=" + logo + ", url=" + url + ", isDetail=" + isDetail + ", type="
+				+ type + ", applyCondition=" + applyCondition + ", applyInformation=" + applyInformation
+				+ ", startQuota=" + startQuota + ", endQuota=" + endQuota + ", rate=" + rate + ", passRate=" + passRate
+				+ ", isPop=" + isPop + ", cycle=" + cycle + ", endCycle=" + endCycle + ", cycleType=" + cycleType
+				+ ", auditLong=" + auditLong + ", applyCount=" + applyCount + ", isCredit=" + isCredit + ", auditType="
+				+ auditType + ", sort=" + sort + ", remark=" + remark + ", ptype=" + ptype + ", createTime="
+				+ createTime + ", updateTime=" + updateTime + ", typeS=" + typeS + ", servicePhone=" + servicePhone
+				+ ", ftype=" + ftype + ", sortType=" + sortType + "]";
 	}
 
-	public void init() {
-		typeM.put("0", "秒下款");
-		typeM.put("1", "额度高");
-		typeM.put("2", "周期长");
-		typeM.put("3", "黑户贷款");
-		typeM.put("4", "利息低");
+	public void init(List<ProductTypePojo> listPro) {
 		if (type != null) {
 			for (String ty : type.split(",")) {
-				typeS += typeM.get(ty) != null ? (typeM.get(ty) + " , ") : "";
+				for (ProductTypePojo productTypePojo : listPro) {
+					if(ty.equals(productTypePojo.getTypeValue())) {
+						typeS += productTypePojo.getTypeName()+",";
+					}
+				}
 			}
+			typeS = typeS.substring(0, typeS.length()-1);
+		}
+		int ed = 0 ;
+		if(endCycle != null) {
+			ed = endCycle;
+		}else {
+			ed = cycle;
+		}
+
+		if(ed <= 30) {
+			cycleType = ed+"天";
+		}else if(ed <= 365) {
+			cycleType = "月";
+			cycleType = (ed / 30)+"月"+(ed%30 == 0?"": (ed%30) +"天");
+		}else{
+			cycleType = "年";
+			int y = ed % 365;
+			cycleType = (ed / 365)+"年" + (y / 30)+"月"+(y%30 == 0?"": (y%30) +"天");
 		}
 	}
 
@@ -282,14 +304,6 @@ public class ProductPojo {
 		this.remark = remark;
 	}
 
-	public Map<String, String> getTypeM() {
-		return typeM;
-	}
-
-	public void setTypeM(Map<String, String> typeM) {
-		this.typeM = typeM;
-	}
-
 	public String getTypeS() {
 		return typeS;
 	}
@@ -330,4 +344,25 @@ public class ProductPojo {
 		this.sortType = sortType;
 	}
 
+	public static void main(String[] args) {
+		int ed = 554;
+		String cycleType = "";
+		if(ed <= 7) {
+			cycleType = ed+"天";
+		}else if(ed <= 30) {
+			cycleType = "周";
+			cycleType = (ed / 7)+"周"+(ed%7) +"天";
+		}else if(ed <= 365) {
+			cycleType = "月";
+			int z = ed % 30;
+			cycleType = (ed / 30)+"月"+(z / 7)+"周"+(z%7) +"天";
+		}else{
+			cycleType = "年";
+			int y = ed % 365;
+			int z = y % 30;
+			int t = z % 7;
+			cycleType = (ed / 365)+"年" + (y / 30)+"月"+(z / 7)+"周"+(t%7) +"天";
+		}
+		System.out.println(cycleType);
+	}
 }
