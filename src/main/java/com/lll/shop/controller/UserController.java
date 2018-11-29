@@ -12,6 +12,7 @@ import com.lll.shop.pojo.BaseRes;
 import com.lll.shop.pojo.GlobalconfigPojo;
 import com.lll.shop.pojo.ResCode;
 import com.lll.shop.pojo.UserPojo;
+import com.lll.shop.pojo.VerifyCode;
 import com.lll.shop.pojo.res.UserRes;
 import com.lll.shop.service.UserService;
 
@@ -82,9 +83,9 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("changePwd")
-	private BaseRes<UserPojo> changePwd(UserPojo userReq){
+	private BaseRes<UserRes> changePwd(UserPojo userReq){
 		log.info("修改密码请求：" + userReq.toString());
-		BaseRes<UserPojo> baseRes = new BaseRes<UserPojo>();
+		BaseRes<UserRes> baseRes = new BaseRes<UserRes>();
 		try {
 			baseRes = userService.changePwd(userReq);
 			log.info("修改密码响应:" + baseRes.toString());
@@ -101,9 +102,9 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("resetPwd")
-	private BaseRes<UserPojo> resetPwd(UserPojo userReq){
+	private BaseRes<UserRes> resetPwd(UserPojo userReq){
 		log.info("重置密码请求：" + userReq.toString());
-		BaseRes<UserPojo> baseRes = new BaseRes<UserPojo>();
+		BaseRes<UserRes> baseRes = new BaseRes<UserRes>();
 		try {
 			GlobalconfigPojo globalconfigPojo =  globalconfigDao.getGlobalByKey("defaultPwd");
 			userReq.setPassWord(globalconfigPojo.getValue());
@@ -116,6 +117,43 @@ public class UserController {
 		return baseRes;
 	}
 	
+	/**
+	 * 发送验证码
+	 * @param verifyCode
+	 * @return
+	 */
+	@RequestMapping("sendCode")
+	private BaseRes<VerifyCode> sendCode(VerifyCode verifyCode){
+		log.info("发送验证码请求：" + verifyCode.toString());
+		BaseRes<VerifyCode> baseRes = new BaseRes<VerifyCode>();
+		try {
+			baseRes = userService.sendCode(verifyCode);
+			log.info("发送验证码响应:" + baseRes.toString());
+		} catch (Exception e) {
+			log.error("发送验证码抛出异常", e);
+			baseRes.setRes(ResCode.SYSTEMERROR);
+		}
+		return baseRes;
+	}
+	
+	/**
+	 * 校验验证码
+	 * @param verifyCode
+	 * @return
+	 */
+	@RequestMapping("checkCode")
+	private BaseRes<VerifyCode> checkCode(VerifyCode verifyCode){
+		log.info("校验验证码是否正确请求：" + verifyCode.toString());
+		BaseRes<VerifyCode> baseRes = new BaseRes<VerifyCode>();
+		try {
+			baseRes = userService.checkCode(verifyCode);
+			log.info("校验验证码是否正确响应:" + baseRes.toString());
+		} catch (Exception e) {
+			log.error("校验验证码是否正确抛出异常", e);
+			baseRes.setRes(ResCode.SYSTEMERROR);
+		}
+		return baseRes;
+	}
 	/**
 	 * 上传头像
 	 * @param userReq

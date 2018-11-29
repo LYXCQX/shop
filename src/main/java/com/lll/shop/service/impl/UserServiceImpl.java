@@ -13,13 +13,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.lll.shop.dao.UserDao;
+import com.lll.shop.dao.VerifyCodeDao;
 import com.lll.shop.pojo.BaseRes;
 import com.lll.shop.pojo.ResCode;
 import com.lll.shop.pojo.UserPojo;
+import com.lll.shop.pojo.VerifyCode;
 import com.lll.shop.pojo.res.UserRes;
 import com.lll.shop.service.UserService;
 import com.lll.shop.util.DateUtil;
 import com.lll.shop.util.MD5Util;
+import com.lll.shop.util.VerifyCodeUtil;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -30,12 +33,18 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private VerifyCodeDao verifyCodeDao;
 	/**
 	 * 用户注册
 	 */
 	@Override
 	public BaseRes<UserRes> register(UserPojo userPojo) {
 		BaseRes<UserRes> res =new BaseRes<UserRes>();
+		res = checkCode(userPojo);
+		if(res.getState() !=0) {
+			return res;
+		}
 		UserPojo user = userDao.selectUser(userPojo);
 		if(user != null) {
 			res.setRes(ResCode.USER_HASUSER);
@@ -83,8 +92,12 @@ public class UserServiceImpl implements UserService{
 	 * 重置，修改密码
 	 */
 	@Override
-	public BaseRes<UserPojo> changePwd(UserPojo userReq) {
-		BaseRes<UserPojo> res = new BaseRes<UserPojo>();
+	public BaseRes<UserRes> changePwd(UserPojo userReq) {
+		BaseRes<UserRes> res = new BaseRes<UserRes>();
+		res = checkCode(userReq);
+		if(res.getState() !=0) {
+			return res;
+		}
 		String salt = UUID.randomUUID().toString();
 		userReq.setSalt(salt);
 		// 用户密码加密
@@ -133,4 +146,45 @@ public class UserServiceImpl implements UserService{
 	public UserRes toJava(UserPojo userPojo) {
 		return JSON.toJavaObject(JSON.parseObject(JSON.toJSONString(userPojo)), UserRes.class) ;
 	}
+
+	/**
+	 * 发送验证码
+	 */
+	@Override
+	public BaseRes<VerifyCode> sendCode(VerifyCode verifyCode) {
+		BaseRes<VerifyCode> res =new BaseRes<VerifyCode>();
+		verifyCode.setCode(VerifyCodeUtil.getRandonString(6));
+		try {
+			verifyCodeDao.saveCode(verifyCode);
+		} catch (Exception e) {
+			res.setRes(ResCode.CODE_SEND_ERROR);
+		}
+		return res;
+	}
+	/**
+	 * 校验验证码是否正确
+	 */
+	@Override
+	public BaseRes<VerifyCode> checkCode(VerifyCode verifyCode) {
+		BaseRes<VerifyCode> res =new BaseRes<VerifyCode>();
+		VerifyCode userCode = verifyCodeDao.selectCode(verifyCode);
+		if(userCode ==null) {
+			res.setRes(ResCode.CODE_NO_SEND);
+		}else if (!userCode.getCode().equalsIgnoreCase(verifyCode.getCode())) {
+			res.setRes(ResCode.CODE_ERROR);
+		}
+		return res;
+	}
+
+	public BaseRes<UserRes> checkCode(UserPojo userPojo) {
+		BaseRes<UserRes> res =new BaseRes<UserRes>();
+		VerifyCode userCode = verifyCodeDao.selectCodeByUser(userPojo);
+		if(userCode ==null) {
+			res.setRes(ResCode.CODE_NO_SEND);
+		}else if (!userCode.getCode().equalsIgnoreCase(userPojo.getCode())) {
+			res.setRes(ResCode.CODE_ERROR);
+		}
+		return res;
+	}
+
 }

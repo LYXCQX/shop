@@ -14,12 +14,14 @@ public class UserPojo {
 	private Integer loginCount;//登录次数
 	private Date createTime;// 创建时间
 	private Date lastLogInTime;// 最后登录时间
+	private String code;
+	private String codeType;
 	@Override
 	public String toString() {
 		return "UserPojo [id=" + id + ", cellPhone=" + cellPhone + ", nickName=" + nickName + ", passWord=" + passWord
 				+ ", salt=" + salt + ", headFile=" + headFile + ", signature=" + signature + ", loginId=" + loginId
 				+ ", loginCount=" + loginCount + ", createTime=" + createTime + ", lastLogInTime=" + lastLogInTime
-				+ "]";
+				+ ", code=" + code + ", codeType=" + codeType + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -86,5 +88,17 @@ public class UserPojo {
 	}
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getCodeType() {
+		return codeType;
+	}
+	public void setCodeType(String codeType) {
+		this.codeType = codeType;
 	}
 }
