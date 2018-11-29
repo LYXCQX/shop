@@ -4,10 +4,16 @@ import java.util.Date;
 
 public class GlobalconfigPojo {
 	private Integer id;
-	private String key;// 配置的key
-	private String value;// 配置的value
+	private String parKey;// 配置的key
+	private String parValue;// 配置的value
 	private String remark;// 备注
 	private Date createTime;// 记录创建时间
+
+	@Override
+	public String toString() {
+		return "GlobalconfigPojo [id=" + id + ", parKey=" + parKey + ", parValue=" + parValue + ", remark=" + remark
+				+ ", createTime=" + createTime + "]";
+	}
 
 	public Integer getId() {
 		return id;
@@ -17,20 +23,20 @@ public class GlobalconfigPojo {
 		this.id = id;
 	}
 
-	public String getKey() {
-		return key;
+	public String getParKey() {
+		return parKey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setParKey(String parKey) {
+		this.parKey = parKey;
 	}
 
-	public String getValue() {
-		return value;
+	public String getParValue() {
+		return parValue;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setParValue(String parValue) {
+		this.parValue = parValue;
 	}
 
 	public String getRemark() {
@@ -48,4 +54,5 @@ public class GlobalconfigPojo {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
 }

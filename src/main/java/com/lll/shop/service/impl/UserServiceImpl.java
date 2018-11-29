@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService{
 	public BaseRes<UserRes> checkLogn(UserPojo userReq) {
 		BaseRes<UserRes> res = new BaseRes<UserRes>();
 		UserPojo user = userDao.selectUserByLoginId(userReq);
-		if (user != null && DateUtil.compare_date(DateUtil.getAfterTme(user.getLastLogInTime(), Integer.valueOf(globalconfigDao.getGlobalByKey("loginExpire").getValue())) , new Date())) {
+		if (user != null && DateUtil.compare_date(DateUtil.getAfterTme(user.getLastLogInTime(), Integer.valueOf(globalconfigDao.getGlobalByKey("loginExpire").getParValue())) , new Date())) {
 			// 随便设置，数据库+1
 //			userReq.setLoginCount(1);
 			res.setData(toJava(user));
@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService{
 			res.setRes(ResCode.CODE_NO_SEND);
 		}else if (!userCode.getCode().equalsIgnoreCase(verifyCode.getCode())) {
 			res.setRes(ResCode.CODE_ERROR);
-		}else if(DateUtil.compare_date(DateUtil.getAfterTme(userCode.getCreateTime(), Integer.valueOf(globalconfigDao.getGlobalByKey("codeExpire").getValue())) , new Date())) {
+		}else if(DateUtil.compare_date(DateUtil.getAfterTme(userCode.getCreateTime(), Integer.valueOf(globalconfigDao.getGlobalByKey("codeExpire").getParValue())) , new Date())) {
 			
 		}
 		return res;

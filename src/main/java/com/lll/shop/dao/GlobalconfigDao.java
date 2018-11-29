@@ -12,6 +12,6 @@ public interface GlobalconfigDao {
 	@Select("select * from globalconfig ")
 	public List<GlobalconfigPojo> getAllGlobal();
 	
-	@Select("select * from globalconfig where key = #{key}")
-	public GlobalconfigPojo getGlobalByKey(@Param("key") String key);
+	@Select("select * from globalconfig where parKey = #{parKey}")
+	public GlobalconfigPojo getGlobalByKey(@Param("parKey") String parKey);
 }

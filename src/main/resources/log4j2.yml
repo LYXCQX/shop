@@ -7,7 +7,7 @@ Configuration:
       #测试：-Dlog.level.console=warn -Dlog.level.xjj=trace
       #生产：-Dlog.level.console=warn -Dlog.level.xjj=debug
       - name: log.level.console
-        value: debug
+        value: info
       - name: log.path
         value: /var/log/
       - name: project.name
@@ -33,7 +33,7 @@ Configuration:
             - level: error
               onMatch: DENY
               onMismatch: NEUTRAL
-            - level: debug
+            - level: info
               onMatch: ACCEPT
               onMismatch: DENY
         Policies:
@@ -100,25 +100,25 @@ Configuration:
           max: 100
   Loggers:
     Root:
-      level: debug
+      level: info
       AppenderRef:
         - ref: CONSOLE
         - ref: ROLLING_FILE
         - ref: EXCEPTION_ROLLING_FILE
     Logger:
       - name: platform
-        level: debug
+        level: info
         additivity: false
         AppenderRef:
           - ref: CONSOLE
           - ref: PLATFORM_ROLLING_FILE
       - name: bussiness
-        level: debug
+        level: info
         additivity: false
         AppenderRef:
           - ref: BUSSINESS_ROLLING_FILE
       - name: exception
-        level: debug
+        level: info
         additivity: true
         AppenderRef:
           - ref: EXCEPTION_ROLLING_FILE

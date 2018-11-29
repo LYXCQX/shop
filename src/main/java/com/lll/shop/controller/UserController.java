@@ -107,7 +107,7 @@ public class UserController {
 		BaseRes<UserRes> baseRes = new BaseRes<UserRes>();
 		try {
 			GlobalconfigPojo globalconfigPojo =  globalconfigDao.getGlobalByKey("defaultPwd");
-			userReq.setPassWord(globalconfigPojo.getValue());
+			userReq.setPassWord(globalconfigPojo.getParValue());
 			baseRes = userService.changePwd(userReq);
 			log.info("重置密码响应:" + baseRes.toString());
 		} catch (Exception e) {
