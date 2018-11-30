@@ -13,16 +13,12 @@ public interface UserDao {
 	 * @param userPojo
 	 * @return
 	 */
-	@Select("select * from user where cellPhone = #{cellPhone}")
+	@Select("<script> select * from user where 1=1"
+			+ "<if test='cellPhone != null'>  and cellPhone = #{cellPhone} </if> "
+			+ "<if test='loginId != null'>  and loginId = #{loginId} </if> "
+			+ "</script>"
+			)
 	public UserPojo selectUser(UserPojo userPojo);
-	
-	/**
-	 * 查询用户信息
-	 * @param userPojo
-	 * @return
-	 */
-	@Select("select * from user where loginId = #{loginId}")
-	public UserPojo selectUserByLoginId(UserPojo userPojo);
 	
 	/**
 	 * 保存用户信息

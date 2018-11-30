@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public BaseRes<UserRes> checkLogn(UserPojo userReq) {
 		BaseRes<UserRes> res = new BaseRes<UserRes>();
-		UserPojo user = userDao.selectUserByLoginId(userReq);
+		UserPojo user = userDao.selectUser(userReq);
 		if (user != null && DateUtil.compare_date(DateUtil.getAfterTme(user.getLastLogInTime(), Integer.valueOf(globalconfigDao.getGlobalByKey("loginExpire").getParValue())) , new Date())) {
 			// 随便设置，数据库+1
 //			userReq.setLoginCount(1);
@@ -157,6 +157,13 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public BaseRes<VerifyCode> sendCode(VerifyCode verifyCode) {
 		BaseRes<VerifyCode> res =new BaseRes<VerifyCode>();
+		UserPojo userPojo =new UserPojo();
+		userPojo.setCellPhone(verifyCode.getCellPhone());
+		UserPojo user = userDao.selectUser(userPojo);
+		if(user != null && verifyCode.getCodeType() == 0) {
+			res.setRes(ResCode.USER_HASUSER);
+			return res;
+		}
 		verifyCode.setCode(VerifyCodeUtil.getRandonString(6));
 		try {
 			verifyCodeDao.saveCode(verifyCode);
